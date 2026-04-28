@@ -517,9 +517,8 @@ pipeline {
                         echo "Building Docker image..."
                          docker build --no-cache -t nomitha123/bms:latest -f bookmyshow-app/Dockerfile .
 
-                         echo "Pushing Docker image to registry..."
-                        docker push nomitha123/bms:latest
-
+                            echo "Pushing Docker image to Docker Hub..."
+                        docker push $DOCKER_IMAGE
                         '''
                     }
                 }
