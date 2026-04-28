@@ -442,15 +442,15 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk17'
+        jdk 'jdk21'
         nodejs 'node23'
     }
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKER_IMAGE = 'kastrov/bms:latest'
+        DOCKER_IMAGE = 'nomitha123/bms:latest'
         EKS_CLUSTER_NAME = 'kastro-eks'
-        AWS_REGION = 'ap-northeast-1'
+        AWS_REGION = 'us-east-1'
     }
 
     stages {
@@ -462,7 +462,7 @@ pipeline {
 
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/KastroVKiran/Book-My-Show.git'
+                'git branch: 'main', url: 'https://github.com/nomithakalakonda30-sketch/Book-My-Show-project-2.git'
                 sh 'ls -la'  // Verify files after checkout
             }
         }
@@ -515,10 +515,11 @@ pipeline {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
                         sh ''' 
                         echo "Building Docker image..."
-                        docker build --no-cache -t $DOCKER_IMAGE -f bookmyshow-app/Dockerfile bookmyshow-app
+                         docker build --no-cache -t nomitha123/bms:latest -f bookmyshow-app/Dockerfile .
 
-                        echo "Pushing Docker image to Docker Hub..."
-                        docker push $DOCKER_IMAGE
+                         echo "Pushing Docker image to registry..."
+                        docker push nomitha123/bms:latest
+
                         '''
                     }
                 }
